@@ -1,24 +1,30 @@
 package com.mercadolibre.starWars.rebels.dto.request;
 
+import java.io.Serializable;
+
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-@EqualsAndHashCode(callSuper = true)
+@Data
 @SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
-public class SatteliteRequestDTO extends SatteliteInformationRequestDTO {
-
+public class SatteliteInformationRequestDTO implements Serializable {
+	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
+	@NotNull
+	private Float distance;
 	
 	@NotEmpty
-	private String name;
+	private String[] message;
 
 }
