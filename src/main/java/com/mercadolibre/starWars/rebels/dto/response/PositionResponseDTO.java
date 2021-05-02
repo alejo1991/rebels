@@ -18,7 +18,7 @@ public class PositionResponseDTO implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private float x;
-	private float y;
+	private float positionX;
+	private float positionY;
 
 }

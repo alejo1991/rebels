@@ -32,21 +32,18 @@ public class SatteliteMessageTracking implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private Integer id;
+	private Long id;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Sattelite sattelite;
 	
-	@Column(name = "splitted_message", nullable = false)
+	@ManyToOne(fetch = FetchType.LAZY)
+	private SattelitePositionHistory sattelitePosition;
+	
+	@Column(name = "message", nullable = false)
 	private String splittedMessage;
 	
-	@Column(name = "position_x", nullable = false)
-	private Float positionX;
-	
-	@Column(name = "position_y", nullable = false)
-	private Float positionY;
-	
-	@Column(name = "decoded")
-	private Boolean decoded;
+	@Column(name = "distance", nullable = false)
+	private Float distance;
 	
 }
