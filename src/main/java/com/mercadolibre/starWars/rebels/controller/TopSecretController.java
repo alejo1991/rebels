@@ -12,31 +12,31 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mercadolibre.starWars.rebels.domain.bo.SatteliteBO;
-import com.mercadolibre.starWars.rebels.dto.request.SattelitesRequestDTO;
+import com.mercadolibre.starWars.rebels.domain.bo.SatelliteBO;
+import com.mercadolibre.starWars.rebels.dto.request.SatellitesRequestDTO;
 import com.mercadolibre.starWars.rebels.dto.response.ValidationErrorDTO;
 import com.mercadolibre.starWars.rebels.exception.RebelsBodyArgumentValidationException;
 import com.mercadolibre.starWars.rebels.exception.UnableToDecodeException;
 import com.mercadolibre.starWars.rebels.service.TopSecretService;
-import com.mercadolibre.starWars.rebels.validator.interf.ISattelitesInfoValidator;
+import com.mercadolibre.starWars.rebels.validator.interf.ISatellitesInfoValidator;
 
 @RestController
 @RequestMapping("/topsecret")
 public class TopSecretController {
 	
 	@Autowired
-	private ISattelitesInfoValidator validator;
+	private ISatellitesInfoValidator validator;
 	
 	@Autowired
 	private TopSecretService service;
 	
 	@PostMapping
-	public ResponseEntity<?> readTopSecret(@Valid @RequestBody SattelitesRequestDTO request) throws RebelsBodyArgumentValidationException, Exception {
+	public ResponseEntity<?> readTopSecret(@Valid @RequestBody SatellitesRequestDTO request) throws RebelsBodyArgumentValidationException, Exception {
 		
-		List<SatteliteBO> satteliteBoList = validator.validate(request);
+		List<SatelliteBO> satelliteBoList = validator.validate(request);
 		
 		try {
-			return new ResponseEntity<>(service.getRevealedMessage(request, satteliteBoList), HttpStatus.OK);
+			return new ResponseEntity<>(service.getRevealedMessage(request, satelliteBoList), HttpStatus.OK);
 		} catch (UnableToDecodeException e) {
 			return new ResponseEntity<>("Not able to decode information", HttpStatus.NOT_FOUND);
 		}

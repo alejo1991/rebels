@@ -9,10 +9,11 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SattelitePositionHistoryBO {
+public class SatelliteMessageTrackingBO {
 	
 	private Long id;
-	private Float positionX;
-	private Float positionY;
+	private SatellitePositionHistoryBO satellitePosition;
+	private String splittedMessage;
+	private Float distance;
 
 }

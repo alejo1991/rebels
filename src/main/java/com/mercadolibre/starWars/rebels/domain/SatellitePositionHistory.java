@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -23,36 +24,34 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "sattelite")
-public class Sattelite implements Serializable {
-
+@Table(name = "satellite_position_history")
+public class SatellitePositionHistory implements Serializable {
+	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	private Long id;
 	
-	@Column(name = "name", nullable = false)
-	private String name;
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Satellite satellite;
+	
+	@Column(name = "position_x", nullable = false)
+	private Float positionX;
+	
+	@Column(name = "position_y", nullable = false)
+	private Float positionY;
 	
 	@OneToMany(
 			fetch = FetchType.LAZY,
-			mappedBy = "sattelite",
+			mappedBy = "satellitePosition",
 			cascade = CascadeType.ALL,
 			orphanRemoval = true
 		)
-	private List<SatteliteMessageTracking> messageTrackingList;
-	
-	@OneToMany(
-			fetch = FetchType.LAZY,
-			mappedBy = "sattelite",
-			cascade = CascadeType.ALL,
-			orphanRemoval = true
-		)
-	private List<SattelitePositionHistory> positionHistoryList;
+	private List<SatelliteMessageTracking> messageTrackingList;
 
 }

@@ -21,8 +21,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "sattelite_message_tracking")
-public class SatteliteMessageTracking implements Serializable {
+@Table(name = "satellite_message_tracking")
+public class SatelliteMessageTracking implements Serializable {
 
 	/**
 	 * 
@@ -35,10 +35,10 @@ public class SatteliteMessageTracking implements Serializable {
 	private Long id;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	private Sattelite sattelite;
+	private Satellite satellite;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	private SattelitePositionHistory sattelitePosition;
+	private SatellitePositionHistory satellitePosition;
 	
 	@Column(name = "message", nullable = false)
 	private String splittedMessage;

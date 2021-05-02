@@ -3,7 +3,7 @@ package com.mercadolibre.starWars.rebels.util;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.mercadolibre.starWars.rebels.dto.request.SatteliteRequestDTO;
+import com.mercadolibre.starWars.rebels.dto.request.SatelliteRequestDTO;
 
 public class RebelUtils {
 	
@@ -18,9 +18,9 @@ public class RebelUtils {
 		return doubleArray;
 	}
 	
-	public static List<String[]> getTransmitedMessageListFromSattelites(List<SatteliteRequestDTO> satteliteList) {
+	public static List<String[]> getTransmitedMessageListFromSatellites(List<SatelliteRequestDTO> satelliteList) {
 		
-		return satteliteList.stream().map(sattelite -> sattelite.getMessage()).collect(Collectors.toList());
+		return satelliteList.stream().map(satellite -> satellite.getMessage()).collect(Collectors.toList());
 	}
 
 }

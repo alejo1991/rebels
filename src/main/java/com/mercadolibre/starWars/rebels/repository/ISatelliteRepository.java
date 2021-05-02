@@ -7,22 +7,23 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.mercadolibre.starWars.rebels.domain.Sattelite;
+import com.mercadolibre.starWars.rebels.domain.Satellite;
 
 @Repository
-public interface ISatteliteRepository extends CrudRepository<Sattelite, Long> {
+public interface ISatelliteRepository extends CrudRepository<Satellite, Long> {
 	
 	public static final String PARAM_NAME = "name";
 	
-	Optional<Sattelite> findByName(String name);
+	Optional<Satellite> findByName(String name);
 	
-	@Query(value = "select Sattelite s "
+	@Query(value = "select s "
+			+ " from Satellite s "
 			+ " join s.positionHistoryList p "
 			+ " where s.name = :" + PARAM_NAME 
 			+ " and p.id in ("
 			+ "		select max(p1.id) "
-			+ "		from SattelitePositionHistory p1 "
-			+ "		where p1.sattelite.name = :" + PARAM_NAME + ")")
-	Optional<Sattelite> getSatteliteWithLatestPosition(@Param(PARAM_NAME) String name);
+			+ "		from SatellitePositionHistory p1 "
+			+ "		where p1.satellite.name = :" + PARAM_NAME + ")")
+	Optional<Satellite> getSatelliteWithLatestPosition(@Param(PARAM_NAME) String name);
 
 }

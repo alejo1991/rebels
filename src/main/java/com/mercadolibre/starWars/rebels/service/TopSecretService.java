@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 
 import com.lemmingapex.trilateration.NonLinearLeastSquaresSolver;
 import com.lemmingapex.trilateration.TrilaterationFunction;
-import com.mercadolibre.starWars.rebels.domain.bo.SatteliteBO;
-import com.mercadolibre.starWars.rebels.dto.request.SattelitesRequestDTO;
+import com.mercadolibre.starWars.rebels.domain.bo.SatelliteBO;
+import com.mercadolibre.starWars.rebels.dto.request.SatellitesRequestDTO;
 import com.mercadolibre.starWars.rebels.dto.response.MessageResponseDTO;
 import com.mercadolibre.starWars.rebels.dto.response.PositionResponseDTO;
 import com.mercadolibre.starWars.rebels.exception.UnableToDecodeException;
@@ -26,11 +26,11 @@ public class TopSecretService {
 	private String decodedMessage;
 	private PositionResponseDTO originPosition;
 	
-	public MessageResponseDTO getRevealedMessage(SattelitesRequestDTO request, List<SatteliteBO> registeredSattelite) throws UnableToDecodeException {
+	public MessageResponseDTO getRevealedMessage(SatellitesRequestDTO request, List<SatelliteBO> registeredSatellite) throws UnableToDecodeException {
 		
-		positionArray = PositionUtils.getPositionArray(registeredSattelite);
-		float[] distanceArray = PositionUtils.getDistanceArray(request.getSattelites(), registeredSattelite);
-		List<String[]> messageList = RebelUtils.getTransmitedMessageListFromSattelites(request.getSattelites());
+		positionArray = PositionUtils.getPositionArray(registeredSatellite);
+		float[] distanceArray = PositionUtils.getDistanceArray(request.getSatellites(), registeredSatellite);
+		List<String[]> messageList = RebelUtils.getTransmitedMessageListFromSatellites(request.getSatellites());
 		decodedMessage = getMessage(messageList);
 		originPosition = getLocation(distanceArray);
 		

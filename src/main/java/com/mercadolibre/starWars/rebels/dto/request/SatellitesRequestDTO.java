@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class SattelitesRequestDTO implements Serializable {
+public class SatellitesRequestDTO implements Serializable {
 
 	/**
 	 * 
@@ -22,6 +22,6 @@ public class SattelitesRequestDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@NotEmpty
-	private List<SatteliteRequestDTO> sattelites;
+	private List<SatelliteRequestDTO> satellites;
 
 }
