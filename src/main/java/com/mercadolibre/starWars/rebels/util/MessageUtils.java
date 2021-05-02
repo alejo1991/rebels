@@ -1,16 +1,28 @@
 package com.mercadolibre.starWars.rebels.util;
 
+import java.util.List;
+
 public class MessageUtils {
 	
 	public static final String WHITE_SPACE_SEPARATOR = " ";
 	
-
 	/**
-	 * 
-	 * @param firstMessage
-	 * @param secondMessage
-	 * @return
+	 * Validates if all elements in given list are not empty or null elements
+	 * @param messages
+	 * @return {@link Boolean}
 	 */
+	public static Boolean validateNotEmptyMessageList(List<String[]> messages) {
+		for(String[] messageReceived: messages) {
+			for(int i = 0; i < messageReceived.length; i++) {
+				if(messageReceived[i] != null && messageReceived[i] != "") {
+					return true;
+				}
+			}
+		}
+		
+		return false;
+	}	
+
     public static String[] joinMessage(String[] firstMessage, String[] secondMessage) {
         
     	int maxSize = Math.max(firstMessage.length, secondMessage.length);
@@ -27,13 +39,6 @@ public class MessageUtils {
         return resultingMessage;
     }
     
-    /**
-     * 
-     * @param firstMessage
-     * @param secondMessage
-     * @param arraySize
-     * @param resultingMessage
-     */
     private static void joinMessagesWithSameSize(String[] firstMessage, String[] secondMessage, int arraySize, String[] resultingMessage) {
         
     	for (int j = 0; j < arraySize; j++) {
@@ -46,14 +51,6 @@ public class MessageUtils {
         }
     }
 
-    /**
-     * 
-     * @param messageMaxSize
-     * @param messageMinSize
-     * @param maxMessageSize
-     * @param minMessageSize
-     * @param resultingMessage
-     */
     private static void joinMessageWithDifferentSize(String[] messageMaxSize, String[] messageMinSize, int maxMessageSize, int minMessageSize, 
     		String[] resultingMessage) {
     	
@@ -66,14 +63,6 @@ public class MessageUtils {
         }
     }
 
-    /**
-     * 
-     * @param messageMaxSize
-     * @param messageMinSize
-     * @param maxMessageSize
-     * @param minMessageSize
-     * @param resultingMessage
-     */
     private static void joinMessageDescendingOrder(String[] messageMaxSize, String[] messageMinSize, int maxMessageSize, int minMessageSize, 
     		String[] resultingMessage) {
     	
@@ -93,14 +82,6 @@ public class MessageUtils {
         }
     }
 
-    /**
-     * 
-     * @param messageMaxSize
-     * @param messageMinSize
-     * @param maxMessageSize
-     * @param diffSize
-     * @param resultingMessage
-     */
     private static void joinMessageAscendingOrder(String[] messageMaxSize, String[] messageMinSize, int maxMessageSize,  
     		int diffSize, String[] resultingMessage) {
     	
@@ -120,14 +101,6 @@ public class MessageUtils {
         }
     }
 
-    /**
-     * 
-     * @param messageMaxSize
-     * @param messageMinSize
-     * @param maxArraySize
-     * @param sizeDiff
-     * @return
-     */
     private static boolean isAscendingOrderBaseOnCompare(String[] messageMaxSize, String[] messageMinSize, int maxArraySize, int sizeDiff) {
         
         for (int j = sizeDiff; j < maxArraySize; j++) {

@@ -53,14 +53,20 @@ public class TopSecretService {
 	}
 	
 	private String getMessage(List<String[]> messageList) {
+		
+		if(MessageUtils.validateNotEmptyMessageList(messageList)) {
         
-		String[] baseMessage = messageList.get(0);
-        
-		for (String[] spplitedMessage: messageList) {
-            baseMessage = MessageUtils.joinMessage(baseMessage, spplitedMessage);
-        }
-        
-		return String.join(MessageUtils.WHITE_SPACE_SEPARATOR, baseMessage);
+			String[] baseMessage = messageList.get(0);
+	        
+			for (String[] spplitedMessage: messageList) {
+	            baseMessage = MessageUtils.joinMessage(baseMessage, spplitedMessage);
+	        }
+	        
+			return String.join(MessageUtils.WHITE_SPACE_SEPARATOR, baseMessage);
+			
+			}
+		
+		return "";
     }
 
 }

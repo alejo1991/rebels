@@ -10,6 +10,7 @@ import javax.validation.ConstraintViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.CollectionUtils;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -93,7 +94,7 @@ public class GlobalExceptionHandlerController extends ResponseEntityExceptionHan
 	 */
 	public List<ValidationErrorDTO> buildBodyErrorList(MethodArgumentNotValidException ex) {
 		
-		if(Objects.nonNull(ex.getBindingResult())) {
+		if(Objects.nonNull(ex.getBindingResult()) && !CollectionUtils.isEmpty(ex.getBindingResult().getFieldErrors())) {
 			
 			List<ValidationErrorDTO> validationList = new LinkedList<>();
 			

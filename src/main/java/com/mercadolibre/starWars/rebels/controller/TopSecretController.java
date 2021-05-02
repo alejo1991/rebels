@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mercadolibre.starWars.rebels.domain.bo.SatelliteBO;
 import com.mercadolibre.starWars.rebels.dto.request.SatellitesRequestDTO;
-import com.mercadolibre.starWars.rebels.dto.response.ValidationErrorDTO;
 import com.mercadolibre.starWars.rebels.exception.RebelsBodyArgumentValidationException;
 import com.mercadolibre.starWars.rebels.exception.UnableToDecodeException;
 import com.mercadolibre.starWars.rebels.service.TopSecretService;

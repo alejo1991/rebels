@@ -21,7 +21,7 @@ import com.mercadolibre.starWars.rebels.validator.interf.ISatellitesInfoValidato
 import lombok.Getter;
 
 @Service
-public class SatellitesInfoValidator implements ISatellitesInfoValidator {
+public class SatellitesInfoValidator extends BaseValidator implements ISatellitesInfoValidator {
 	
 	@Autowired
 	private ISatelliteRepository satelliteRepository;
@@ -39,7 +39,7 @@ public class SatellitesInfoValidator implements ISatellitesInfoValidator {
 		List<SatelliteBO> registeredSatelliteList = validateIfSatelliteExist(request);
 		
 		if(!CollectionUtils.isEmpty(errorList)) {
-			throw new RebelsBodyArgumentValidationException(errorList, null, null);
+			throw new RebelsBodyArgumentValidationException(errorList, null, getBindingResult(errorList));
 		}
 		
 		return registeredSatelliteList;
@@ -52,7 +52,7 @@ public class SatellitesInfoValidator implements ISatellitesInfoValidator {
 		for(SatelliteRequestDTO satellite: request.getSatellites()) {
 			Optional<Satellite> registeredSatellite = satelliteRepository.getSatelliteWithLatestPosition(satellite.getName());
 			if(!registeredSatellite.isPresent()) {
-				errorList.add(ValidationErrorDTO.builder().message("¡Warning! Satellite: " + satellite.getName() + " don´t belong to the resistence.").build());
+				errorList.add(ValidationErrorDTO.builder().message("¡Warning! satellite " + satellite.getName() + " don´t belong to the resistance.").build());
 			} else {
 				registeredSatelliteList.add(registeredSatellite.get());
 			}
