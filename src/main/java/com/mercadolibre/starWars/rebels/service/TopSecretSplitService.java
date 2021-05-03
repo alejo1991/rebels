@@ -14,10 +14,12 @@ import com.mercadolibre.starWars.rebels.domain.bo.SatelliteBO;
 import com.mercadolibre.starWars.rebels.dto.request.SatelliteRequestDTO;
 import com.mercadolibre.starWars.rebels.dto.response.MessageResponseDTO;
 import com.mercadolibre.starWars.rebels.dto.response.PositionResponseDTO;
+import com.mercadolibre.starWars.rebels.enums.EventCodeEnum;
 import com.mercadolibre.starWars.rebels.exception.RebelsUnableToDecodeException;
 import com.mercadolibre.starWars.rebels.mapper.SatelliteMessageTrackingEntityMapper;
 import com.mercadolibre.starWars.rebels.repository.ISatelliteMessageTrackingRepository;
 import com.mercadolibre.starWars.rebels.util.PositionUtils;
+import com.mercadolibre.starWars.rebels.util.RebelUtils;
 
 @Service
 public class TopSecretSplitService extends BaseService {
@@ -34,7 +36,7 @@ public class TopSecretSplitService extends BaseService {
 	@Transactional(rollbackFor = {Exception.class})
 	public String saveSatelliteTransmition(SatelliteRequestDTO request) throws Exception {
 		if(Objects.nonNull(messageRepository.save(messageTrackingMapper.getEntity(request)))) {
-			return "transmition saved successfully";
+			return RebelUtils.getFormattedMessage(EventCodeEnum.TransmitionSavedSuccessfully.getDescription(), Arrays.asList(request.getName()));
 		}
 		
 		throw new Exception();

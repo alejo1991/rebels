@@ -2,6 +2,8 @@ package com.mercadolibre.starWars.rebels.util;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+
 public class MessageUtils {
 	
 	public static final String WHITE_SPACE_SEPARATOR = " ";
@@ -14,7 +16,7 @@ public class MessageUtils {
 	public static Boolean validateNotEmptyMessageList(List<String[]> messages) {
 		for(String[] messageReceived: messages) {
 			for(int i = 0; i < messageReceived.length; i++) {
-				if(messageReceived[i] != null && messageReceived[i] != "") {
+				if(messageReceived[i] != null && messageReceived[i] != StringUtils.EMPTY) {
 					return true;
 				}
 			}

@@ -2,6 +2,7 @@ package com.mercadolibre.starWars.rebels.service;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.math3.fitting.leastsquares.LeastSquaresOptimizer;
 import org.apache.commons.math3.fitting.leastsquares.LevenbergMarquardtOptimizer;
 
@@ -40,7 +41,7 @@ public class BaseService {
 			
 		}
 		
-		return "";
+		return StringUtils.EMPTY;
     }
 
 }

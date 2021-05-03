@@ -1,5 +1,6 @@
 package com.mercadolibre.starWars.rebels.util;
 
+import java.text.MessageFormat;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,6 +22,15 @@ public class RebelUtils {
 	public static List<String[]> getTransmitedMessageListFromSatellites(List<SatelliteRequestDTO> satelliteList) {
 		
 		return satelliteList.stream().map(satellite -> satellite.getMessage()).collect(Collectors.toList());
+	}
+	
+	public static String getFormattedMessage(String baseMessage, List<String> parameters) {
+		
+		Object[] paramArray = parameters.stream().toArray(String[]::new);
+		
+		MessageFormat form = new MessageFormat(baseMessage);
+		
+		return form.format(paramArray);
 	}
 
 }

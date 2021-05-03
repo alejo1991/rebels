@@ -19,6 +19,7 @@ import com.mercadolibre.starWars.rebels.domain.bo.SatelliteBO;
 import com.mercadolibre.starWars.rebels.dto.request.SatelliteInformationRequestDTO;
 import com.mercadolibre.starWars.rebels.dto.request.SatelliteRequestDTO;
 import com.mercadolibre.starWars.rebels.dto.response.MessageResponseDTO;
+import com.mercadolibre.starWars.rebels.enums.EventCodeEnum;
 import com.mercadolibre.starWars.rebels.exception.RebelsBodyArgumentValidationException;
 import com.mercadolibre.starWars.rebels.exception.RebelsUnableToDecodeException;
 import com.mercadolibre.starWars.rebels.service.TopSecretSplitService;
@@ -39,7 +40,8 @@ public class TopSecretSplitController {
 	
     @PostMapping("/{satellite_name}")
 	@ApiOperation(
-		value = "Save decoded message and distance intercepted by satellite from imperial load carrier",
+		value = "Save transmitted data by specific satellite",
+		notes = "Save decoded message and distance intercepted by satellite from imperial load carrier",
 	    response = String.class)
     public ResponseEntity<String> saveTrasmittedMessage(@PathVariable(name = "satellite_name") String satelliteName, 
     		@Valid @RequestBody SatelliteInformationRequestDTO request) throws RebelsBodyArgumentValidationException, Exception {
@@ -65,7 +67,7 @@ public class TopSecretSplitController {
 		try {
 			return new ResponseEntity<>(service.getRevealedMessage(registeredSatellite), HttpStatus.OK);
 	    } catch (RebelsUnableToDecodeException | IllegalArgumentException e) {
-			return new ResponseEntity<>("Not able to decode information", HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(EventCodeEnum.NotAbleToDecodeInformationWarning.getDescription(), HttpStatus.NOT_FOUND);
 		}
 	}   
 

@@ -1,5 +1,6 @@
 package com.mercadolibre.starWars.rebels.validator.implm;
 
+import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,10 +17,12 @@ import com.mercadolibre.starWars.rebels.domain.Satellite;
 import com.mercadolibre.starWars.rebels.domain.bo.SatelliteBO;
 import com.mercadolibre.starWars.rebels.dto.request.SatelliteRequestDTO;
 import com.mercadolibre.starWars.rebels.dto.response.ValidationErrorDTO;
+import com.mercadolibre.starWars.rebels.enums.EventCodeEnum;
 import com.mercadolibre.starWars.rebels.enums.FindSatelliteCriteriaEnum;
 import com.mercadolibre.starWars.rebels.exception.RebelsBodyArgumentValidationException;
 import com.mercadolibre.starWars.rebels.mapper.ISatelliteEntityToBoMapper;
 import com.mercadolibre.starWars.rebels.repository.ISatelliteRepository;
+import com.mercadolibre.starWars.rebels.util.RebelUtils;
 import com.mercadolibre.starWars.rebels.validator.interf.ISatelliteRequestValidator;
 
 import lombok.Getter;
@@ -72,7 +75,9 @@ public class SatelliteRequestValidator extends BaseValidator implements ISatelli
 		Optional<Satellite> registeredSatellite = findSatelliteInfo(findCriteria, request.getName());
 		
 		if(!registeredSatellite.isPresent()) {
-			errorList.add(ValidationErrorDTO.builder().message("¡Warning! satellite " + request.getName() + " don´t belong to the resistance.").build());
+			errorList.add(ValidationErrorDTO.builder()
+					.message(RebelUtils.getFormattedMessage(EventCodeEnum.SatelliteNotBelongResistanceWarning.getDescription(), 
+							Arrays.asList(request.getName()))).build());
 		} else {
 			return mapper.fromEntityToBO(registeredSatellite.get());
 		}
