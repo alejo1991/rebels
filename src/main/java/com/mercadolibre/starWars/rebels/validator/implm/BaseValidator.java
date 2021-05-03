@@ -15,7 +15,7 @@ import com.mercadolibre.starWars.rebels.dto.response.ValidationErrorDTO;
 
 public class BaseValidator {
 	
-	protected BindingResult getBindingResult(List<ValidationErrorDTO> errorList) {
+	protected BindingResult getEmptyBindingResult(List<ValidationErrorDTO> errorList) {
 		
 		BindingResult bindingResult = new BindingResult() {
 			

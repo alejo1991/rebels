@@ -50,7 +50,7 @@ public class SatelliteRequestValidator extends BaseValidator implements ISatelli
 		SatelliteBO registeredSatellite = validateIfSatelliteExist(request, FindSatelliteCriteriaEnum.LATEST_POSITION);
 		
 		if(!CollectionUtils.isEmpty(errorList)) {
-			throw new RebelsBodyArgumentValidationException(errorList, null, getBindingResult(errorList));
+			throw new RebelsBodyArgumentValidationException(errorList, null, getEmptyBindingResult(errorList));
 		}
 		
 		return registeredSatellite;
@@ -63,7 +63,7 @@ public class SatelliteRequestValidator extends BaseValidator implements ISatelli
 		SatelliteRequestDTO request = SatelliteRequestDTO.builder().name(satelliteName).build();
 		SatelliteBO registeredSatellite = validateIfSatelliteExist(request, FindSatelliteCriteriaEnum.LATEST_MESSAGE);
 		
-		if(!CollectionUtils.isEmpty(errorList)) {
+		if(!CollectionUtils.isEmpty(errorSet)) {
 			throw new ConstraintViolationException(errorSet);
 		}	
 		
@@ -75,14 +75,30 @@ public class SatelliteRequestValidator extends BaseValidator implements ISatelli
 		Optional<Satellite> registeredSatellite = findSatelliteInfo(findCriteria, request.getName());
 		
 		if(!registeredSatellite.isPresent()) {
-			errorList.add(ValidationErrorDTO.builder()
-					.message(RebelUtils.getFormattedMessage(EventCodeEnum.SatelliteNotBelongResistanceWarning.getDescription(), 
-							Arrays.asList(request.getName()))).build());
+			addToValidationErrors(request, findCriteria);
 		} else {
 			return mapper.fromEntityToBO(registeredSatellite.get());
 		}
 		
 		return null;
+	}
+	
+	private void addToValidationErrors(SatelliteRequestDTO request, FindSatelliteCriteriaEnum findCriteria) {
+		switch(findCriteria) {
+			case LATEST_MESSAGE:
+				errorSet.add(ValidationErrorDTO.builder()
+						.message(RebelUtils.getFormattedMessage(EventCodeEnum.SatelliteNotBelongResistanceWarning.getDescription(), 
+								Arrays.asList(request.getName()))).build());
+				break;
+			case LATEST_POSITION:
+				errorList.add(ValidationErrorDTO.builder()
+						.message(RebelUtils.getFormattedMessage(EventCodeEnum.SatelliteNotBelongResistanceWarning.getDescription(), 
+								Arrays.asList(request.getName()))).build());
+				break;
+			default:
+				break;
+		}
+	
 	}
 	
 	private Optional<Satellite> findSatelliteInfo(FindSatelliteCriteriaEnum findCriteria, String satelliteName) {
