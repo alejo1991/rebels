@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.math3.fitting.leastsquares.LeastSquaresOptimizer;
 import org.apache.commons.math3.fitting.leastsquares.LevenbergMarquardtOptimizer;
+import org.springframework.util.CollectionUtils;
 
 import com.lemmingapex.trilateration.NonLinearLeastSquaresSolver;
 import com.lemmingapex.trilateration.TrilaterationFunction;
@@ -29,7 +30,7 @@ public class BaseService {
 	
 	protected String getMessage(List<String[]> messageList) {
 		
-		if(MessageUtils.validateNotEmptyMessageList(messageList)) {
+		if(MessageUtils.validateNotEmptyMessageList(messageList) && !CollectionUtils.isEmpty(messageList)) {
         
 			String[] baseMessage = messageList.get(0);
 	        

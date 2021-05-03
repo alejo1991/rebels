@@ -1,6 +1,7 @@
 package com.mercadolibre.starWars.rebels.service;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
@@ -9,6 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import com.mercadolibre.starWars.rebels.domain.bo.SatelliteBO;
 import com.mercadolibre.starWars.rebels.dto.request.SatelliteRequestDTO;
@@ -59,12 +61,19 @@ public class TopSecretSplitService extends BaseService {
 	}
 	
 	private List<String[]> getSatelliteLatestMessage(SatelliteBO registeredSatellite) {
-		String latestMessage = registeredSatellite.getMessageTrackingList().stream().map(satellite -> satellite.getSplittedMessage()).findFirst().toString();
-		String[] messageArray = latestMessage.split(SatelliteMessageTrackingEntityMapper.SPLIT_CHAR);
-		List<String[]> messageList = new LinkedList<>();
-		messageList.add(messageArray);
 		
-		return messageList;
+		if(!CollectionUtils.isEmpty(registeredSatellite.getMessageTrackingList())) {
+			
+			String latestMessage = registeredSatellite.getMessageTrackingList().stream().map(satellite -> satellite.getSplittedMessage()).findFirst().toString();
+			String[] messageArray = latestMessage.split(SatelliteMessageTrackingEntityMapper.SPLIT_CHAR);
+			List<String[]> messageList = new LinkedList<>();
+			messageList.add(messageArray);
+			
+			return messageList;
+		
+		}
+		
+		return Collections.emptyList();
 	}
 	
 	

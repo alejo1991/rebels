@@ -25,11 +25,8 @@ import com.mercadolibre.starWars.rebels.dto.response.ResponseContainerDTO;
 import com.mercadolibre.starWars.rebels.dto.response.ValidationErrorDTO;
 import com.mercadolibre.starWars.rebels.exception.RebelsBodyArgumentValidationException;
 
-import lombok.extern.slf4j.Slf4j;
-
 @ControllerAdvice
 @RestController
-@Slf4j
 public class GlobalExceptionHandlerController extends ResponseEntityExceptionHandler {
 	
 	/**
@@ -42,8 +39,7 @@ public class GlobalExceptionHandlerController extends ResponseEntityExceptionHan
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ResponseBody
 	ResponseContainerDTO handleConstraintViolationException(ConstraintViolationException e) {
-		log.info("Request has validation errors", e);
-
+		
 		final ResponseContainerDTO error = ResponseContainerDTO.builder()
 				.response(buildErrorList(e))
 				.message(HttpStatus.BAD_REQUEST.name())
@@ -59,7 +55,6 @@ public class GlobalExceptionHandlerController extends ResponseEntityExceptionHan
 	 */
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-		log.info("Request has validation errors", ex);
 
 		final ResponseContainerDTO error = ResponseContainerDTO.builder()
 				.response(buildBodyErrorList(ex))
@@ -77,7 +72,6 @@ public class GlobalExceptionHandlerController extends ResponseEntityExceptionHan
 	 */
 	@ExceptionHandler(Exception.class)
 	ResponseEntity<ResponseContainerDTO> handleExceptions(final Exception ex, final WebRequest request) {
-		log.error(ex.getMessage(), ex);
 		
 		final ResponseContainerDTO error = ResponseContainerDTO.builder()
 				.message(ex.getMessage())
