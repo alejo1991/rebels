@@ -47,6 +47,19 @@ public class PositionUtils {
         return distanceArray;
     }
 	
+	/**
+	 * 
+	 * @param satelliteRegistered
+	 * @return
+	 */
+	public static float[] getDistanceArray(SatelliteBO satelliteRegistered) {
+		
+        float[] distanceArray = new float[1];
+        distanceArray[0] = satelliteRegistered.getMessageTrackingList().get(0).getDistance();
+        
+        return distanceArray;
+    }
+	
 	
 
 }

@@ -1,6 +1,6 @@
 package com.mercadolibre.starWars.rebels.exception;
 
-public class UnableToDecodeException extends Exception {
+public class RebelsUnableToDecodeException extends Exception {
 
 	/**
 	 * 

@@ -7,5 +7,5 @@ import com.mercadolibre.starWars.rebels.domain.SatelliteMessageTracking;
 
 @Repository
 public interface ISatelliteMessageTrackingRepository extends CrudRepository<SatelliteMessageTracking, Long> {
-
+	
 }

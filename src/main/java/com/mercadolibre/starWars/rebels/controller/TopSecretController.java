@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mercadolibre.starWars.rebels.domain.bo.SatelliteBO;
 import com.mercadolibre.starWars.rebels.dto.request.SatellitesRequestDTO;
 import com.mercadolibre.starWars.rebels.exception.RebelsBodyArgumentValidationException;
-import com.mercadolibre.starWars.rebels.exception.UnableToDecodeException;
+import com.mercadolibre.starWars.rebels.exception.RebelsUnableToDecodeException;
 import com.mercadolibre.starWars.rebels.service.TopSecretService;
 import com.mercadolibre.starWars.rebels.validator.interf.ISatellitesInfoValidator;
 
@@ -36,7 +36,7 @@ public class TopSecretController {
 		
 		try {
 			return new ResponseEntity<>(service.getRevealedMessage(request, satelliteBoList), HttpStatus.OK);
-		} catch (UnableToDecodeException e) {
+		} catch (RebelsUnableToDecodeException | IllegalArgumentException e) {
 			return new ResponseEntity<>("Not able to decode information", HttpStatus.NOT_FOUND);
 		}
 		
