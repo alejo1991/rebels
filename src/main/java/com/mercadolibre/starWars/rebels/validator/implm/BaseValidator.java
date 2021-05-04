@@ -11,11 +11,9 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 
-import com.mercadolibre.starWars.rebels.dto.response.ValidationErrorDTO;
-
 public class BaseValidator {
 	
-	protected BindingResult getEmptyBindingResult(List<ValidationErrorDTO> errorList) {
+	protected BindingResult getEmptyBindingResult() {
 		
 		BindingResult bindingResult = new BindingResult() {
 			

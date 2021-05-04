@@ -18,6 +18,7 @@
 		<java.version>1.8</java.version>
 		<springfox-swagger.version>2.9.2</springfox-swagger.version>
 		<m2e.apt.activation>jdt_apt</m2e.apt.activation>
+		<org.jacoco.version>0.7.7.201606060606</org.jacoco.version>
 	</properties>
 	
 	<dependencies>
@@ -115,6 +116,56 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+			  <groupId>org.jacoco</groupId>
+			  <artifactId>jacoco-maven-plugin</artifactId>
+			  <version>${org.jacoco.version}</version>
+			  <executions>
+			    <execution>
+			      <id>rebels-jacoco-prepare-agent</id>
+			      <goals>
+			        <goal>prepare-agent</goal>
+			      </goals>
+			    </execution>
+			    <execution>
+			      <id>check</id>
+			      <goals>
+			          <goal>check</goal>
+			      </goals>
+			      <configuration>
+			        <rules>
+			          <rule>
+			            <element>CLASS</element>
+			            <limits>
+			              <limit>
+			                <counter>LINE</counter>
+			                <value>COVEREDRATIO</value>
+			                <minimum>0.90</minimum>
+			              </limit>
+			              <limit>
+			                <counter>BRANCH</counter>
+			                <value>COVEREDRATIO</value>
+			                <minimum>0.90</minimum>
+			              </limit>
+			            </limits>
+			            <excludes>
+			              <exclude>**/com/mercadolibre/starWars/rebels/aspect/*</exclude>
+			              <exclude>**/com/mercadolibre/starWars/rebels/config/*</exclude>
+			              <exclude>**/com/mercadolibre/starWars/rebels/domain/*</exclude>
+			              <exclude>**/com/mercadolibre/starWars/rebels/dto/*</exclude>
+			              <exclude>**/com/mercadolibre/starWars/rebels/enums/*</exclude>
+			              <exclude>**/com/mercadolibre/starWars/rebels/exception/*</exclude>
+			              <exclude>**/com/mercadolibre/starWars/rebels/mapper/*</exclude>
+			              <exclude>**/com/mercadolibre/starWars/rebels/repository/*</exclude>
+			              <exclude>**/com/mercadolibre/starWars/rebels/util/*</exclude>
+			              <exclude>**/com/mercadolibre/starWars/rebels/validator/interf/*</exclude>
+			            </excludes>
+			          </rule>
+			        </rules>
+			      </configuration>
+			    </execution>
+			  </executions>
 			</plugin>
 		</plugins>
 		

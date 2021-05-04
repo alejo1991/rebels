@@ -1,21 +1,37 @@
 package com.mercadolibre.starWars.rebels.helper;
 
+import java.beans.PropertyEditor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.stream.Collectors;
+
+import javax.validation.ConstraintViolationException;
+
+import org.springframework.beans.PropertyEditorRegistry;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import com.mercadolibre.starWars.rebels.domain.bo.SatelliteBO;
 import com.mercadolibre.starWars.rebels.domain.bo.SatelliteMessageTrackingBO;
 import com.mercadolibre.starWars.rebels.domain.bo.SatellitePositionHistoryBO;
 import com.mercadolibre.starWars.rebels.dto.request.SatelliteRequestDTO;
 import com.mercadolibre.starWars.rebels.dto.request.SatellitesRequestDTO;
+import com.mercadolibre.starWars.rebels.dto.response.MessageResponseDTO;
+import com.mercadolibre.starWars.rebels.dto.response.PositionResponseDTO;
+import com.mercadolibre.starWars.rebels.dto.response.ValidationErrorDTO;
+import com.mercadolibre.starWars.rebels.exception.RebelsBodyArgumentValidationException;
 
 public class TestObjectsHelper {
 	
@@ -258,6 +274,489 @@ public class TestObjectsHelper {
 		return mockedMessageList.get(index);
 	}
 	
+	public static MessageResponseDTO getMockedSuccessfullResponse() {
+		
+		return MessageResponseDTO.builder()
+			.message("este es un mensaje auxilio")
+			.position(PositionResponseDTO.builder().positionX(-58.31525f).positionY(-69.551414f).build())
+			.build();
+	}
 	
-
+	public static ConstraintViolationException buildMockedConstraintException() {
+		Set<ValidationErrorDTO> errorSet = new HashSet<>();
+		errorSet.add(ValidationErrorDTO.builder().fieldName("a").message("error in field a").build());
+		errorSet.add(ValidationErrorDTO.builder().fieldName("b").message("error in field b").build());
+		
+		return new ConstraintViolationException(errorSet);
+	}
+	
+	public static MethodArgumentNotValidException buildMockedMethodArgumentNotValidException() {
+		List<ValidationErrorDTO> errorList = new ArrayList<>();
+		errorList.add(ValidationErrorDTO.builder().fieldName("a").message("error in field a").build());
+		errorList.add(ValidationErrorDTO.builder().fieldName("b").message("error in field b").build());
+		
+		return new RebelsBodyArgumentValidationException(errorList, null, getEmptyBindingResult());
+	}
+	
+	public static MethodArgumentNotValidException buildMockedBindingMethodArgumentNotValidException() {
+		List<ValidationErrorDTO> errorList = new ArrayList<>();
+		errorList.add(ValidationErrorDTO.builder().fieldName("a").message("error in field a").build());
+		errorList.add(ValidationErrorDTO.builder().fieldName("b").message("error in field b").build());
+		
+		return new RebelsBodyArgumentValidationException(null, null, getPopulatedBindingResult(errorList));
+	}
+	
+	
+	
+	public static BindingResult getEmptyBindingResult() {
+			
+			BindingResult bindingResult = new BindingResult() {
+				
+				@Override
+				public void setNestedPath(String nestedPath) {				
+				}
+				
+				@Override
+				public void rejectValue(String field, String errorCode, Object[] errorArgs, String defaultMessage) {
+				}
+				
+				@Override
+				public void rejectValue(String field, String errorCode, String defaultMessage) {
+					
+					
+				}
+				
+				@Override
+				public void rejectValue(String field, String errorCode) {
+					
+					
+				}
+				
+				@Override
+				public void reject(String errorCode, Object[] errorArgs, String defaultMessage) {
+					
+					
+				}
+				
+				@Override
+				public void reject(String errorCode, String defaultMessage) {
+					
+					
+				}
+				
+				@Override
+				public void reject(String errorCode) {
+					
+					
+				}
+				
+				@Override
+				public void pushNestedPath(String subPath) {
+					
+					
+				}
+				
+				@Override
+				public void popNestedPath() throws IllegalStateException {
+					
+					
+				}
+				
+				@Override
+				public boolean hasGlobalErrors() {
+					
+					return false;
+				}
+				
+				@Override
+				public boolean hasFieldErrors(String field) {
+					
+					return false;
+				}
+				
+				@Override
+				public boolean hasFieldErrors() {
+					
+					return false;
+				}
+				
+				@Override
+				public boolean hasErrors() {
+					
+					return false;
+				}
+				
+				@Override
+				public String getObjectName() {
+					
+					return null;
+				}
+				
+				@Override
+				public String getNestedPath() {
+					
+					return null;
+				}
+				
+				@Override
+				public List<ObjectError> getGlobalErrors() {
+					
+					return null;
+				}
+				
+				@Override
+				public int getGlobalErrorCount() {
+					
+					return 0;
+				}
+				
+				@Override
+				public ObjectError getGlobalError() {
+					
+					return null;
+				}
+				
+				@Override
+				public Object getFieldValue(String field) {
+					
+					return null;
+				}
+				
+				@Override
+				public Class<?> getFieldType(String field) {
+					
+					return null;
+				}
+				
+				@Override
+				public List<FieldError> getFieldErrors(String field) {
+					
+					return null;
+				}
+				
+				@Override
+				public List<FieldError> getFieldErrors() {
+					
+					return null;
+				}
+				
+				@Override
+				public int getFieldErrorCount(String field) {
+					
+					return 0;
+				}
+				
+				@Override
+				public int getFieldErrorCount() {
+					
+					return 0;
+				}
+				
+				@Override
+				public FieldError getFieldError(String field) {
+					
+					return null;
+				}
+				
+				@Override
+				public FieldError getFieldError() {
+					
+					return null;
+				}
+				
+				@Override
+				public int getErrorCount() {
+					
+					return 0;
+				}
+				
+				@Override
+				public List<ObjectError> getAllErrors() {
+					
+					return new ArrayList<>();
+				}
+				
+				@Override
+				public void addAllErrors(Errors errors) {
+					
+					
+				}
+				
+				@Override
+				public String[] resolveMessageCodes(String errorCode, String field) {
+					
+					return null;
+				}
+				
+				@Override
+				public String[] resolveMessageCodes(String errorCode) {
+					
+					return null;
+				}
+				
+				@Override
+				public Object getTarget() {
+					
+					return null;
+				}
+				
+				@Override
+				public Object getRawFieldValue(String field) {
+					
+					return null;
+				}
+				
+				@Override
+				public PropertyEditorRegistry getPropertyEditorRegistry() {
+					
+					return null;
+				}
+				
+				@Override
+				public Map<String, Object> getModel() {
+					
+					return null;
+				}
+				
+				@Override
+				public PropertyEditor findEditor(String field, Class<?> valueType) {
+					
+					return null;
+				}
+				
+				@Override
+				public void addError(ObjectError error) {
+					
+					
+				}
+			};
+			
+			return bindingResult;
+	}
+	
+	public static BindingResult getPopulatedBindingResult(List<ValidationErrorDTO> errorList) {
+		
+		BindingResult bindingResult = new BindingResult() {
+			
+			@Override
+			public void setNestedPath(String nestedPath) {				
+			}
+			
+			@Override
+			public void rejectValue(String field, String errorCode, Object[] errorArgs, String defaultMessage) {
+			}
+			
+			@Override
+			public void rejectValue(String field, String errorCode, String defaultMessage) {
+				
+				
+			}
+			
+			@Override
+			public void rejectValue(String field, String errorCode) {
+				
+				
+			}
+			
+			@Override
+			public void reject(String errorCode, Object[] errorArgs, String defaultMessage) {
+				
+				
+			}
+			
+			@Override
+			public void reject(String errorCode, String defaultMessage) {
+				
+				
+			}
+			
+			@Override
+			public void reject(String errorCode) {
+				
+				
+			}
+			
+			@Override
+			public void pushNestedPath(String subPath) {
+				
+				
+			}
+			
+			@Override
+			public void popNestedPath() throws IllegalStateException {
+				
+				
+			}
+			
+			@Override
+			public boolean hasGlobalErrors() {
+				
+				return false;
+			}
+			
+			@Override
+			public boolean hasFieldErrors(String field) {
+				
+				return false;
+			}
+			
+			@Override
+			public boolean hasFieldErrors() {
+				
+				return false;
+			}
+			
+			@Override
+			public boolean hasErrors() {
+				
+				return false;
+			}
+			
+			@Override
+			public String getObjectName() {
+				
+				return null;
+			}
+			
+			@Override
+			public String getNestedPath() {
+				
+				return null;
+			}
+			
+			@Override
+			public List<ObjectError> getGlobalErrors() {
+				
+				return null;
+			}
+			
+			@Override
+			public int getGlobalErrorCount() {
+				
+				return errorList.size();
+			}
+			
+			@Override
+			public ObjectError getGlobalError() {
+				
+				return null;
+			}
+			
+			@Override
+			public Object getFieldValue(String field) {
+				
+				return null;
+			}
+			
+			@Override
+			public Class<?> getFieldType(String field) {
+				
+				return null;
+			}
+			
+			@Override
+			public List<FieldError> getFieldErrors(String field) {
+				
+				return null;
+			}
+			
+			@Override
+			public List<FieldError> getFieldErrors() {
+				return errorList.stream().map(error -> new FieldError(error.getFieldName(), error.getFieldName(), error.getMessage())).collect(Collectors.toList());
+			}
+			
+			@Override
+			public int getFieldErrorCount(String field) {
+				
+				return 0;
+			}
+			
+			@Override
+			public int getFieldErrorCount() {
+				
+				return errorList.size();
+			}
+			
+			@Override
+			public FieldError getFieldError(String field) {
+				
+				return null;
+			}
+			
+			@Override
+			public FieldError getFieldError() {
+				
+				return null;
+			}
+			
+			@Override
+			public int getErrorCount() {
+				
+				return 0;
+			}
+			
+			@Override
+			public List<ObjectError> getAllErrors() {
+				
+				return new ArrayList<>();
+			}
+			
+			@Override
+			public void addAllErrors(Errors errors) {
+				
+				
+			}
+			
+			@Override
+			public String[] resolveMessageCodes(String errorCode, String field) {
+				
+				return null;
+			}
+			
+			@Override
+			public String[] resolveMessageCodes(String errorCode) {
+				
+				return null;
+			}
+			
+			@Override
+			public Object getTarget() {
+				
+				return null;
+			}
+			
+			@Override
+			public Object getRawFieldValue(String field) {
+				
+				return null;
+			}
+			
+			@Override
+			public PropertyEditorRegistry getPropertyEditorRegistry() {
+				
+				return null;
+			}
+			
+			@Override
+			public Map<String, Object> getModel() {
+				
+				return null;
+			}
+			
+			@Override
+			public PropertyEditor findEditor(String field, Class<?> valueType) {
+				
+				return null;
+			}
+			
+			@Override
+			public void addError(ObjectError error) {
+				
+				
+			}
+		};
+		
+		return bindingResult;
+	}
+	
 }

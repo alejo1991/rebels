@@ -1,4 +1,4 @@
-package com.mercadolibre.starWars.rebels.validator;
+package com.mercadolibre.starWars.rebels.validator.implm;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -47,7 +47,7 @@ public class SatelliteRequestValidatorTest {
 	public void validateAttemptSaveMessagePost() throws RebelsBodyArgumentValidationException {
 		
 		when(mockedSatelliteRepo.getSatelliteWithLatestPosition(anyString())).thenReturn(Optional.ofNullable(new Satellite()));
-		validator.validate(TestObjectsHelper.getSatelliteRequestOk());
+		validator.validateRequest(TestObjectsHelper.getSatelliteRequestOk());
 		
 		assertTrue(CollectionUtils.isEmpty(validator.getErrorList()));
 	}
@@ -58,7 +58,7 @@ public class SatelliteRequestValidatorTest {
 		
 		when(mockedSatelliteRepo.getSatelliteWithLatestPosition(anyString())).thenReturn(Optional.ofNullable(new Satellite()));
 		when(mapper.fromEntityToBO(any())).thenReturn(TestObjectsHelper.getSatelliteBoNameOk());
-		SatelliteBO response = validator.validate(TestObjectsHelper.getSatelliteRequestOk());
+		SatelliteBO response = validator.validateRequest(TestObjectsHelper.getSatelliteRequestOk());
 		
 		assertTrue(Objects.nonNull(response));
 	}
@@ -70,7 +70,7 @@ public class SatelliteRequestValidatorTest {
 		when(mockedSatelliteRepo.getSatelliteWithLatestPosition(anyString())).thenReturn(Optional.ofNullable(new Satellite()));
 		when(mapper.fromEntityToBO(any())).thenReturn(TestObjectsHelper.getSatelliteBoNameOk());
 		
-		assertThrows(RebelsBodyArgumentValidationException.class, () -> validator.validate(TestObjectsHelper.getSatelliteRequestNotMeaningfulMessage()));
+		assertThrows(RebelsBodyArgumentValidationException.class, () -> validator.validateRequest(TestObjectsHelper.getSatelliteRequestNotMeaningfulMessage()));
 	}
 	
 	@Test
@@ -78,7 +78,7 @@ public class SatelliteRequestValidatorTest {
 	public void validateSatelliteExistanceErrorPost() {
 		
 		when(mockedSatelliteRepo.getSatelliteWithLatestPosition(anyString())).thenReturn(Optional.ofNullable(null));
-		assertThrows(RebelsBodyArgumentValidationException.class, () -> validator.validate(TestObjectsHelper.getSatelliteRequestOk()));
+		assertThrows(RebelsBodyArgumentValidationException.class, () -> validator.validateRequest(TestObjectsHelper.getSatelliteRequestOk()));
 	}
 	
 	@Test
@@ -87,7 +87,7 @@ public class SatelliteRequestValidatorTest {
 		
 		when(mockedSatelliteRepo.getSatelliteWithLatestPosition(anyString())).thenReturn(Optional.ofNullable(null));
 		try {
-			validator.validate(TestObjectsHelper.getSatelliteRequestBadName());
+			validator.validateRequest(TestObjectsHelper.getSatelliteRequestBadName());
 		} catch (RebelsBodyArgumentValidationException e) {
 		}
 		

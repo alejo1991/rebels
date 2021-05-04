@@ -86,7 +86,7 @@ public class GlobalExceptionHandlerController extends ResponseEntityExceptionHan
 	 * @param ex
 	 * @return the (@link List<ValidationErrorDTO>) list with error validations
 	 */
-	public List<ValidationErrorDTO> buildBodyErrorList(MethodArgumentNotValidException ex) {
+	private List<ValidationErrorDTO> buildBodyErrorList(MethodArgumentNotValidException ex) {
 		
 		if(Objects.nonNull(ex.getBindingResult()) && !CollectionUtils.isEmpty(ex.getBindingResult().getFieldErrors())) {
 			

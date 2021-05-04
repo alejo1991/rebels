@@ -45,14 +45,14 @@ public class SatelliteRequestValidator extends BaseValidator implements ISatelli
 
 
 	@Override
-	public SatelliteBO validate(SatelliteRequestDTO request) throws RebelsBodyArgumentValidationException {
+	public SatelliteBO validateRequest(SatelliteRequestDTO request) throws RebelsBodyArgumentValidationException {
 		errorList = new LinkedList<>();
 		
 		SatelliteBO registeredSatellite = validateIfSatelliteExist(request, FindSatelliteCriteriaEnum.LATEST_POSITION);
 		validateNotMeaningfulMessage(request);
 		
 		if(!CollectionUtils.isEmpty(errorList)) {
-			throw new RebelsBodyArgumentValidationException(errorList, null, getEmptyBindingResult(errorList));
+			throw new RebelsBodyArgumentValidationException(errorList, null, getEmptyBindingResult());
 		}
 		
 		return registeredSatellite;

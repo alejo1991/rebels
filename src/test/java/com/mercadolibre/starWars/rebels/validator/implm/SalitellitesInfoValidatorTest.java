@@ -1,4 +1,4 @@
-package com.mercadolibre.starWars.rebels.validator;
+package com.mercadolibre.starWars.rebels.validator.implm;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;

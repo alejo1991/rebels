@@ -42,7 +42,7 @@ public class SatellitesInfoValidator extends BaseValidator implements ISatellite
 		List<SatelliteBO> registeredSatelliteList = validateIfSatelliteExist(request);
 		
 		if(!CollectionUtils.isEmpty(errorList)) {
-			throw new RebelsBodyArgumentValidationException(errorList, null, getEmptyBindingResult(errorList));
+			throw new RebelsBodyArgumentValidationException(errorList, null, getEmptyBindingResult());
 		}
 		
 		return registeredSatelliteList;

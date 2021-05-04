@@ -48,7 +48,7 @@ public class TopSecretSplitController {
 		
     	SatelliteRequestDTO requestDto = SatelliteRequestDTO.builder().name(satelliteName).distance(request.getDistance()).message(request.getMessage()).build();
     	
-		validator.validate(requestDto);
+		validator.validateRequest(requestDto);
 		
 		return new ResponseEntity<>(service.saveSatelliteTransmition(requestDto), HttpStatus.OK);
 	}

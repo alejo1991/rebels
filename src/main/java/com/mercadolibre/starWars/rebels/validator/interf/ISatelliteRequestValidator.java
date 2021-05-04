@@ -8,7 +8,7 @@ import com.mercadolibre.starWars.rebels.exception.RebelsBodyArgumentValidationEx
 
 public interface ISatelliteRequestValidator {
 	
-	SatelliteBO validate(final SatelliteRequestDTO request) throws RebelsBodyArgumentValidationException;
+	SatelliteBO validateRequest(final SatelliteRequestDTO request) throws RebelsBodyArgumentValidationException;
 	
 	SatelliteBO validate(final String satelliteName) throws ConstraintViolationException;
 
