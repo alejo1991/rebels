@@ -29,13 +29,13 @@ public interface ISatelliteRepository extends CrudRepository<Satellite, Long> {
 	@Query(value = "select s "
 			+ " from Satellite s "
 			+ " join s.positionHistoryList p "
-			+ " join s.messageTrackingList m "
+			+ " left join s.messageTrackingList m "
 			+ " where s.name = :" + PARAM_NAME 
 			+ " and p.id in ("
 			+ "		select max(p1.id) "
 			+ "		from SatellitePositionHistory p1 "
 			+ "		where p1.satellite.name = :" + PARAM_NAME + ")"
-			+ " and m.id in ("
+			+ " or m.id in ("
 			+ "		select max(m1.id) "
 			+ "		from SatelliteMessageTracking m1 "
 			+ "		where m1.satellite.name = :" + PARAM_NAME + ")")

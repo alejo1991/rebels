@@ -70,7 +70,7 @@ public class TopSecretSplitService extends BaseService {
 		
 		if(!CollectionUtils.isEmpty(registeredSatellite.getMessageTrackingList())) {
 			
-			String latestMessage = registeredSatellite.getMessageTrackingList().stream().map(satellite -> satellite.getSplittedMessage()).findFirst().toString();
+			String latestMessage = registeredSatellite.getMessageTrackingList().stream().map(satellite -> satellite.getSplittedMessage()).findFirst().get().toString();
 			String[] messageArray = latestMessage.split(SatelliteMessageTrackingEntityMapper.SPLIT_CHAR);
 			List<String[]> messageList = new LinkedList<>();
 			messageList.add(messageArray);
