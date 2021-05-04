@@ -23,11 +23,11 @@ import com.mercadolibre.starWars.rebels.repository.ISatelliteMessageTrackingRepo
 import com.mercadolibre.starWars.rebels.util.PositionUtils;
 import com.mercadolibre.starWars.rebels.util.RebelUtils;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class TopSecretSplitService extends BaseService {
-		
-	private String decodedMessage;
-	private PositionResponseDTO originPosition;
 	
 	@Autowired
 	private SatelliteMessageTrackingEntityMapper messageTrackingMapper;
@@ -38,22 +38,28 @@ public class TopSecretSplitService extends BaseService {
 	@Transactional(rollbackFor = {Exception.class})
 	public String saveSatelliteTransmition(SatelliteRequestDTO request) throws Exception {
 		if(Objects.nonNull(messageRepository.save(messageTrackingMapper.getEntity(request)))) {
-			return RebelUtils.getFormattedMessage(EventCodeEnum.TransmitionSavedSuccessfully.getDescription(), Arrays.asList(request.getName()));
+			return RebelUtils.getFormattedMessage(EventCodeEnum.TransmissionSavedSuccessfully.getDescription(), Arrays.asList(request.getName()));
 		}
 		
 		throw new Exception();
 	}
 	
 	public MessageResponseDTO getRevealedMessage(SatelliteBO registeredSatellite) 
-			throws RebelsUnableToDecodeException, IllegalArgumentException, Exception {
+			throws RebelsUnableToDecodeException, Exception {
 		 		
 		positionArray = PositionUtils.getPositionArray(Arrays.asList(registeredSatellite));
 		float[] distanceArray = PositionUtils.getDistanceArray(registeredSatellite);
 		
-		decodedMessage = getMessage(getSatelliteLatestMessage(registeredSatellite));
-		originPosition = getLocation(distanceArray);
+		String decodedMessage = getMessage(getSatelliteLatestMessage(registeredSatellite));
+		PositionResponseDTO originPosition = null;
 		
-		if(StringUtils.isNotEmpty(decodedMessage) && Objects.nonNull(originPosition)) {
+		try {
+			originPosition = getLocation(distanceArray);
+		} catch (IllegalArgumentException e) {
+			log.error(EventCodeEnum.NotEnoughInfoForTriangulate.getDescription());
+		}
+		
+		if(StringUtils.isNotEmpty(decodedMessage) || Objects.nonNull(originPosition)) {
 			return MessageResponseDTO.builder().message(decodedMessage).position(originPosition).build();
 		} else {
 			throw new RebelsUnableToDecodeException();

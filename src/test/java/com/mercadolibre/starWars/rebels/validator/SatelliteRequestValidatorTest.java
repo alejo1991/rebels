@@ -3,10 +3,11 @@ package com.mercadolibre.starWars.rebels.validator;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
+import java.util.Objects;
 import java.util.Optional;
 
 import javax.validation.ConstraintViolationException;
@@ -21,6 +22,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.CollectionUtils;
 
 import com.mercadolibre.starWars.rebels.domain.Satellite;
+import com.mercadolibre.starWars.rebels.domain.bo.SatelliteBO;
 import com.mercadolibre.starWars.rebels.exception.RebelsBodyArgumentValidationException;
 import com.mercadolibre.starWars.rebels.helper.TestObjectsHelper;
 import com.mercadolibre.starWars.rebels.mapper.ISatelliteEntityToBoMapper;
@@ -56,9 +58,19 @@ public class SatelliteRequestValidatorTest {
 		
 		when(mockedSatelliteRepo.getSatelliteWithLatestPosition(anyString())).thenReturn(Optional.ofNullable(new Satellite()));
 		when(mapper.fromEntityToBO(any())).thenReturn(TestObjectsHelper.getSatelliteBoNameOk());
-		validator.validate(TestObjectsHelper.getSatelliteRequestOk());
+		SatelliteBO response = validator.validate(TestObjectsHelper.getSatelliteRequestOk());
 		
-		assertTrue(CollectionUtils.isEmpty(validator.getErrorList()));
+		assertTrue(Objects.nonNull(response));
+	}
+	
+	@Test
+	@DisplayName("Test to check that errors will be thrown when incoming message is not meaningful")
+	public void validateErrorNotMeaningfulMessagePost() throws RebelsBodyArgumentValidationException {
+		
+		when(mockedSatelliteRepo.getSatelliteWithLatestPosition(anyString())).thenReturn(Optional.ofNullable(new Satellite()));
+		when(mapper.fromEntityToBO(any())).thenReturn(TestObjectsHelper.getSatelliteBoNameOk());
+		
+		assertThrows(RebelsBodyArgumentValidationException.class, () -> validator.validate(TestObjectsHelper.getSatelliteRequestNotMeaningfulMessage()));
 	}
 	
 	@Test
@@ -90,6 +102,17 @@ public class SatelliteRequestValidatorTest {
 		validator.validate("kenobi");
 		
 		assertTrue(CollectionUtils.isEmpty(validator.getErrorSet()));
+	}
+	
+	@Test
+	@DisplayName("Test to check that validate method return BO when satellite exist for get request")
+	public void validateReturnBoGet() throws RebelsBodyArgumentValidationException {
+		
+		when(mockedSatelliteRepo.getSatelliteLatestPositionAndMessage(anyString())).thenReturn(Optional.ofNullable(new Satellite()));
+		when(mapper.fromEntityToBO(any())).thenReturn(TestObjectsHelper.getSatelliteBoNameOk());
+		SatelliteBO response = validator.validate("kenobi");
+		
+		assertTrue(Objects.nonNull(response));
 	}
 	
 	@Test

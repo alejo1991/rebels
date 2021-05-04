@@ -17,17 +17,14 @@ import com.mercadolibre.starWars.rebels.util.RebelUtils;
 @Service
 public class TopSecretService extends BaseService {
 	
-	private String decodedMessage;
-	private PositionResponseDTO originPosition;
-	
 	public MessageResponseDTO getRevealedMessage(SatellitesRequestDTO request, List<SatelliteBO> registeredSatellite) 
 			throws RebelsUnableToDecodeException, IllegalArgumentException, Exception {
 		
 		positionArray = PositionUtils.getPositionArray(registeredSatellite);
 		float[] distanceArray = PositionUtils.getDistanceArray(request.getSatellites(), registeredSatellite);
 		List<String[]> messageList = RebelUtils.getTransmitedMessageListFromSatellites(request.getSatellites());
-		decodedMessage = getMessage(messageList);
-		originPosition = getLocation(distanceArray);
+		String decodedMessage = getMessage(messageList);
+		PositionResponseDTO originPosition = getLocation(distanceArray);
 		
 		if(StringUtils.isNotEmpty(decodedMessage) && Objects.nonNull(originPosition)) {
 			return MessageResponseDTO.builder().message(decodedMessage).position(originPosition).build();

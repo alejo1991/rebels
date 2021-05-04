@@ -2,6 +2,8 @@ package com.mercadolibre.starWars.rebels.util;
 
 import java.util.List;
 
+import org.springframework.util.CollectionUtils;
+
 import com.mercadolibre.starWars.rebels.domain.bo.SatelliteBO;
 import com.mercadolibre.starWars.rebels.dto.request.SatelliteRequestDTO;
 
@@ -55,7 +57,10 @@ public class PositionUtils {
 	public static float[] getDistanceArray(SatelliteBO satelliteRegistered) {
 		
         float[] distanceArray = new float[1];
-        distanceArray[0] = satelliteRegistered.getMessageTrackingList().get(0).getDistance();
+        
+        if(!CollectionUtils.isEmpty(satelliteRegistered.getMessageTrackingList())) {
+        	distanceArray[0] = satelliteRegistered.getMessageTrackingList().get(0).getDistance();
+        }
         
         return distanceArray;
     }

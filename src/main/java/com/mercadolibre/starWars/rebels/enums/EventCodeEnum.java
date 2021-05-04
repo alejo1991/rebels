@@ -6,8 +6,10 @@ import lombok.Getter;
 public enum EventCodeEnum {
 	
 	NotAbleToDecodeInformationWarning("001", "Sorry! not able to decode message and triangulate carrier position."),
-	TransmitionSavedSuccessfully("002", "Transmition from satellite {0} saved successfully."),
-	SatelliteNotBelongResistanceWarning("003", "¡Warning! satellite {0} don´t belong to the resistance.");
+	TransmissionSavedSuccessfully("002", "Transmission from satellite {0} saved successfully."),
+	SatelliteNotBelongResistanceWarning("003", "¡Warning! satellite {0} don´t belong to the resistance."),
+	TransmissionMessageNotMeaningful("004", "Transmission from satellite {0} hasn't meaningful message."),
+	NotEnoughInfoForTriangulate("005", "Error traingulating carrier position, not enough info");
 	
 	private String eventCode;
 	private String description;

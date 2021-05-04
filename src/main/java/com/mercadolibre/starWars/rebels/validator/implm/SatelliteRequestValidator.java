@@ -22,6 +22,7 @@ import com.mercadolibre.starWars.rebels.enums.FindSatelliteCriteriaEnum;
 import com.mercadolibre.starWars.rebels.exception.RebelsBodyArgumentValidationException;
 import com.mercadolibre.starWars.rebels.mapper.ISatelliteEntityToBoMapper;
 import com.mercadolibre.starWars.rebels.repository.ISatelliteRepository;
+import com.mercadolibre.starWars.rebels.util.MessageUtils;
 import com.mercadolibre.starWars.rebels.util.RebelUtils;
 import com.mercadolibre.starWars.rebels.validator.interf.ISatelliteRequestValidator;
 
@@ -48,6 +49,7 @@ public class SatelliteRequestValidator extends BaseValidator implements ISatelli
 		errorList = new LinkedList<>();
 		
 		SatelliteBO registeredSatellite = validateIfSatelliteExist(request, FindSatelliteCriteriaEnum.LATEST_POSITION);
+		validateNotMeaningfulMessage(request);
 		
 		if(!CollectionUtils.isEmpty(errorList)) {
 			throw new RebelsBodyArgumentValidationException(errorList, null, getEmptyBindingResult(errorList));
@@ -109,6 +111,14 @@ public class SatelliteRequestValidator extends BaseValidator implements ISatelli
 				return satelliteRepository.getSatelliteWithLatestPosition(satelliteName);
 			default:
 				return Optional.empty();
+		}
+	}
+	
+	private void validateNotMeaningfulMessage(SatelliteRequestDTO request) {
+		if (!MessageUtils.validateNotEmptyMessageArray(request.getMessage())) {
+			errorList.add(ValidationErrorDTO.builder()
+					.message(RebelUtils.getFormattedMessage(EventCodeEnum.TransmissionMessageNotMeaningful.getDescription(), 
+							Arrays.asList(request.getName()))).build());
 		}
 	}
 

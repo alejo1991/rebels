@@ -23,7 +23,17 @@ public class MessageUtils {
 		}
 		
 		return false;
-	}	
+	}
+	
+	public static Boolean validateNotEmptyMessageArray(String[] messages) {
+			for(int i = 0; i < messages.length; i++) {
+				if(messages[i] != null && messages[i] != StringUtils.EMPTY) {
+					return true;
+				}
+			}
+		
+		return false;
+	}
 
     public static String[] joinMessage(String[] firstMessage, String[] secondMessage) {
         
