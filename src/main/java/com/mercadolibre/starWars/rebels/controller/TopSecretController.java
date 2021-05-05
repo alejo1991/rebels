@@ -36,8 +36,8 @@ public class TopSecretController {
 	
 	@PostMapping
 	@ApiOperation(
-		value = "Get decoded message and location from imperial load carrier",
-	    notes = "Returns the decoded message and triangulates the position from imperial load carrier using current distance and encoded message intercepted",
+		value = "Obtener mensaje y posición del portacarga imperial",
+	    notes = "Obtiene el mensaje a partir de los mensajes transmitidos y la posición a partir de la distancia de cada satélite al portacarga",
 	    response = MessageResponseDTO.class,
 	    produces = MediaType.APPLICATION_JSON_VALUE,
 	    consumes = MediaType.APPLICATION_JSON_VALUE)

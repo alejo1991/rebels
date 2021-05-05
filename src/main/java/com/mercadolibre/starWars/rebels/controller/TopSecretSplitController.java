@@ -40,8 +40,8 @@ public class TopSecretSplitController {
 	
     @PostMapping("/{satellite_name}")
 	@ApiOperation(
-		value = "Save transmitted data by specific satellite",
-		notes = "Save decoded message and distance intercepted by satellite from imperial load carrier",
+		value = "Guardar transmisión de datos de un satélite específico",
+		notes = "Guarda el mensaje interceptado del portacarga imperial y la distancia desde el satélite transmisor",
 	    response = String.class)
     public ResponseEntity<String> saveTrasmittedMessage(@PathVariable(name = "satellite_name") String satelliteName, 
     		@Valid @RequestBody SatelliteInformationRequestDTO request) throws RebelsBodyArgumentValidationException, Exception {
@@ -55,8 +55,8 @@ public class TopSecretSplitController {
 
     @GetMapping("/{satellite_name}")
     @ApiOperation(
-    		value = "Get decoded message and distance from imperial load carrier by satellite name",
-    	    notes = "Returns the decoded message and triangulates the position from imperial load carrier using current distance and encoded message intercepted",
+    		value = "Obtener el último mensaje y posición disponible transmitido por satélite",
+    	    notes = "Obtiene la posición del portacarga imperial y el mensaje decodificado por satélite si es posible determinarlo para un satélite específico",
     	    response = MessageResponseDTO.class,
     	    produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getLatestSatelliteMessage(@PathVariable(name = "satellite_name", required = true) String satelliteName) 
