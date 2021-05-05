@@ -42,6 +42,23 @@ public class TopSecretServiceTest {
 	}
 	
 	@Test
+	@DisplayName("Test successfull scenario for decoded message and position triangulated when incoming message lenght is different ascending")
+	public void testSuccessfullResponseDiffMessageLenghtAsc() throws RebelsUnableToDecodeException, IllegalArgumentException, Exception {
+		MessageResponseDTO response = service.getRevealedMessage(TestObjectsHelper.getSatellitesRequestOkDiffMessageLenghtAsc(), TestObjectsHelper.getSatellitesBoCompleteOk());
+		
+		assertEquals(response.getPosition().getPositionX(), -58.31525f);
+		assertEquals(response.getPosition().getPositionY(), -69.551414f);
+	}
+	
+	@Test
+	@DisplayName("Test scenario when message is not revealed due to empty message")
+	public void testNotDecodedMessageEmptyMessage() throws RebelsUnableToDecodeException, IllegalArgumentException, Exception {
+		
+		assertThrows(RebelsUnableToDecodeException.class, 
+				() -> service.getRevealedMessage(TestObjectsHelper.getSatellitesRequestEmptyMessages(), TestObjectsHelper.getSatellitesBoCompleteOk()));
+	}
+	
+	@Test
 	@DisplayName("Test expected error scenario for not decoded message and position triangulated")
 	public void testUnableToDecodeByMessage() throws RebelsUnableToDecodeException, IllegalArgumentException, Exception {
 		

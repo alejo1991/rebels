@@ -77,11 +77,31 @@ public class TestObjectsHelper {
 			.build();
 	}
 	
+	public static SatelliteRequestDTO getSatelliteRequestEmptyMessage(String name, float distance, int index) {
+		
+		String[] message = new String[0];
+		
+		return SatelliteRequestDTO.builder()
+			.distance(distance)
+			.message(message)
+			.name(name)
+			.build();
+	}
+	
 	public static SatelliteRequestDTO getSatelliteRequestDiffMessageLenght(String name, float distance, int index) {
 		
 		return SatelliteRequestDTO.builder()
 			.distance(distance)
 			.message(getMessageDiffLenghtByIndex(index))
+			.name(name)
+			.build();
+	}
+	
+	public static SatelliteRequestDTO getSatelliteRequestDiffMessageLenghtAsc(String name, float distance, int index) {
+		
+		return SatelliteRequestDTO.builder()
+			.distance(distance)
+			.message(getMessageDiffLenghtByIndexAsc(index))
 			.name(name)
 			.build();
 	}
@@ -171,6 +191,20 @@ public class TestObjectsHelper {
 		return SatellitesRequestDTO.builder().satellites(satellites).build();
 	}
 	
+	public static SatellitesRequestDTO getSatellitesRequestEmptyMessages() {		
+		List<SatelliteRequestDTO> satellites = new LinkedList<>();
+		int i = 0;
+		
+		Iterator<Map.Entry<String, Float>> iterator = getSatelliteRequestData().entrySet().iterator();
+		while (iterator.hasNext()) {
+			Entry<String, Float> entry = iterator.next();
+			satellites.add(getSatelliteRequestEmptyMessage(entry.getKey(), entry.getValue(), i));
+			i++;
+		}
+		
+		return SatellitesRequestDTO.builder().satellites(satellites).build();
+	}
+	
 	public static SatellitesRequestDTO getSatellitesRequestOkDiffMessageLenght() {		
 		List<SatelliteRequestDTO> satellites = new LinkedList<>();
 		int i = 0;
@@ -179,6 +213,20 @@ public class TestObjectsHelper {
 		while (iterator.hasNext()) {
 			Entry<String, Float> entry = iterator.next();
 			satellites.add(getSatelliteRequestDiffMessageLenght(entry.getKey(), entry.getValue(), i));
+			i++;
+		}
+		
+		return SatellitesRequestDTO.builder().satellites(satellites).build();
+	}
+	
+	public static SatellitesRequestDTO getSatellitesRequestOkDiffMessageLenghtAsc() {		
+		List<SatelliteRequestDTO> satellites = new LinkedList<>();
+		int i = 0;
+		
+		Iterator<Map.Entry<String, Float>> iterator = getSatelliteRequestData().entrySet().iterator();
+		while (iterator.hasNext()) {
+			Entry<String, Float> entry = iterator.next();
+			satellites.add(getSatelliteRequestDiffMessageLenghtAsc(entry.getKey(), entry.getValue(), i));
 			i++;
 		}
 		
@@ -267,6 +315,19 @@ public class TestObjectsHelper {
 		String[] message3 = {"este", "", "", "mensaje", "auxilio"};
 		
 		List<String[]> mockedMessageList = new ArrayList<>();
+		mockedMessageList.add(message1);
+		mockedMessageList.add(message2);
+		mockedMessageList.add(message3);
+		
+		return mockedMessageList.get(index);
+	}
+	
+	public static String[] getMessageDiffLenghtByIndexAsc(int index) {
+		String[] message3 = {"este", "mensaje"};
+		String[] message2 = {"", "mensaje", ""};
+		String[] message1 = {"este", "", "", ""};
+		
+		List<String[]> mockedMessageList = new LinkedList<>();
 		mockedMessageList.add(message1);
 		mockedMessageList.add(message2);
 		mockedMessageList.add(message3);
