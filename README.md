@@ -32,7 +32,7 @@ http://localhost:8080/swagger-ui.html#
 
 ### HerokuApp
 
-
+https://rebels-test.herokuapp.com/swagger-ui.html#
 
 
 ## Contribuir
