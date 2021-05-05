@@ -114,6 +114,11 @@ public class SatelliteRequestValidator extends BaseValidator implements ISatelli
 		}
 	}
 	
+	/**
+	 * Validates if the intercepted message has at least one word, if not, add a validation
+	 * error to the list
+	 * @param request
+	 */
 	private void validateNotMeaningfulMessage(SatelliteRequestDTO request) {
 		if (!MessageUtils.validateNotEmptyMessageArray(request.getMessage())) {
 			errorList.add(ValidationErrorDTO.builder()

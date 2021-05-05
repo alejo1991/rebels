@@ -17,6 +17,14 @@ public class BaseService {
 	
 	protected double[][] positionArray;
 	
+	/**
+	 * Calculates and return the target position [x, y] given an array of distances from satellites
+	 * and internally calls for previously populated positionArray with the position of every
+	 * satellite. This method sign obey to requirement definition.
+	 * @param distances
+	 * @return {@link PositionResponseDTO}
+	 * @throws IllegalArgumentException
+	 */
 	protected PositionResponseDTO getLocation(float[] distances) throws IllegalArgumentException {
 		
 		NonLinearLeastSquaresSolver solver = new NonLinearLeastSquaresSolver(
@@ -28,6 +36,12 @@ public class BaseService {
         return PositionResponseDTO.builder().positionX((float) point[0]).positionY((float) point[1]).build();
 	}
 	
+	/**
+	 * Calculate and return the message intercepted from target given a list of messages 
+	 * transmitted by at least one satellite
+	 * @param messageList
+	 * @return {@link String}
+	 */
 	protected String getMessage(List<String[]> messageList) {
 		
 		if(MessageUtils.validateNotEmptyMessageList(messageList) && !CollectionUtils.isEmpty(messageList)) {

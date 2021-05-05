@@ -24,10 +24,16 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class ControllerLogHandler {
 	 
+	/**
+	 * PointCut for any RestController
+	 */
     @Pointcut("within(@org.springframework.web.bind.annotation.RestController *)")
     public void restController() {
     }
  
+    /**
+     * PointCut for any method execution in RestController
+     */
     @Pointcut("execution(* *.*(..))")
     protected void allMethod() {
     }

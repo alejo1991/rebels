@@ -17,6 +17,17 @@ import com.mercadolibre.starWars.rebels.util.RebelUtils;
 @Service
 public class TopSecretService extends BaseService {
 	
+	/**
+	 * Return the response with the message decoded and the triangulated position
+	 * of the target given the request and the database validated info. If not able
+	 * to resolve at least one of those returns {@link RebelsUnableToDecodeException>
+	 * @param request
+	 * @param registeredSatellite
+	 * @return {@link MessageResponseDTO}
+	 * @throws RebelsUnableToDecodeException
+	 * @throws IllegalArgumentException
+	 * @throws Exception
+	 */
 	public MessageResponseDTO getRevealedMessage(SatellitesRequestDTO request, List<SatelliteBO> registeredSatellite) 
 			throws RebelsUnableToDecodeException, IllegalArgumentException, Exception {
 		

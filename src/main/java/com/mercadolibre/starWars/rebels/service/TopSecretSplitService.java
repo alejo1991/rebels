@@ -35,6 +35,13 @@ public class TopSecretSplitService extends BaseService {
 	@Autowired
 	private ISatelliteMessageTrackingRepository messageRepository;
 	
+	/**
+	 * Returns an affirmative message if the information transmitted by one
+	 * satellite is saved successfully. Otherwise returns an {@link Exception} 
+	 * @param request
+	 * @return {@link String} 
+	 * @throws Exception
+	 */
 	@Transactional(rollbackFor = {Exception.class})
 	public String saveSatelliteTransmition(SatelliteRequestDTO request) throws Exception {
 		if(Objects.nonNull(messageRepository.save(messageTrackingMapper.getEntity(request)))) {
@@ -44,6 +51,16 @@ public class TopSecretSplitService extends BaseService {
 		throw new Exception();
 	}
 	
+	/**
+	 * Return the response with the message decoded and the triangulated position
+	 * of the target given the request and the database validated info. If not able
+	 * to resolve at least one of those returns at least one. However if not able
+	 * to resolve any of both returns {@link RebelsUnableToDecodeException>
+	 * @param registeredSatellite
+	 * @return {@link MessageResponseDTO}
+	 * @throws RebelsUnableToDecodeException
+	 * @throws Exception
+	 */
 	public MessageResponseDTO getRevealedMessage(SatelliteBO registeredSatellite) 
 			throws RebelsUnableToDecodeException, Exception {
 		 		
@@ -66,6 +83,12 @@ public class TopSecretSplitService extends BaseService {
 		}		
 	}
 	
+	/**
+	 * Get the latest message transmitted by one satellite from the data validated
+	 * againts the database
+	 * @param registeredSatellite
+	 * @return {@link List<String[]>}
+	 */
 	private List<String[]> getSatelliteLatestMessage(SatelliteBO registeredSatellite) {
 		
 		if(!CollectionUtils.isEmpty(registeredSatellite.getMessageTrackingList())) {

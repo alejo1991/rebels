@@ -25,6 +25,11 @@ public class MessageUtils {
 		return false;
 	}
 	
+	/**
+	 * Validates if all elements in given array are not empty or null elements
+	 * @param messages
+	 * @return {@link Boolean}
+	 */
 	public static Boolean validateNotEmptyMessageArray(String[] messages) {
 			for(int i = 0; i < messages.length; i++) {
 				if(messages[i] != null && messages[i] != StringUtils.EMPTY) {
@@ -35,6 +40,13 @@ public class MessageUtils {
 		return false;
 	}
 
+	/**
+	 * Build and return a String array given two string arrays and deciding if may built in
+	 * ascending or descending order according with parameters array size
+	 * @param firstMessage
+	 * @param secondMessage
+	 * @return
+	 */
     public static String[] joinMessage(String[] firstMessage, String[] secondMessage) {
         
     	int maxSize = Math.max(firstMessage.length, secondMessage.length);
@@ -75,6 +87,15 @@ public class MessageUtils {
         }
     }
 
+    /**
+     * Add message to main message array taking into account if the order to add it
+     * is descending
+     * @param messageMaxSize
+     * @param messageMinSize
+     * @param maxMessageSize
+     * @param minMessageSize
+     * @param resultingMessage
+     */
     private static void joinMessageDescendingOrder(String[] messageMaxSize, String[] messageMinSize, int maxMessageSize, int minMessageSize, 
     		String[] resultingMessage) {
     	
@@ -94,6 +115,15 @@ public class MessageUtils {
         }
     }
 
+    /**
+     * Add message to main message array taking into account if the order to add it
+     * is ascending
+     * @param messageMaxSize
+     * @param messageMinSize
+     * @param maxMessageSize
+     * @param diffSize
+     * @param resultingMessage
+     */
     private static void joinMessageAscendingOrder(String[] messageMaxSize, String[] messageMinSize, int maxMessageSize,  
     		int diffSize, String[] resultingMessage) {
     	
@@ -113,6 +143,15 @@ public class MessageUtils {
         }
     }
 
+    /**
+     * Compare two string arrays and determinate if the the order may be 
+     * ascending (true) or not (false) for joining purposes
+     * @param messageMaxSize
+     * @param messageMinSize
+     * @param maxArraySize
+     * @param sizeDiff
+     * @return {@link Boolean}
+     */
     private static boolean isAscendingOrderBaseOnCompare(String[] messageMaxSize, String[] messageMinSize, int maxArraySize, int sizeDiff) {
         
         for (int j = sizeDiff; j < maxArraySize; j++) {
@@ -126,6 +165,12 @@ public class MessageUtils {
         return true;
     }
 
+    /**
+     * Returns the first parameter if not empty. Otherwise returns the second one
+     * @param first
+     * @param second
+     * @return {@link String}
+     */
     private static String getNotEmptyString(String first, String second) {
         return !first.isEmpty() ? first : second;
     }

@@ -50,9 +50,9 @@ public class PositionUtils {
     }
 	
 	/**
-	 * 
+	 * Get the distance array from one satellite
 	 * @param satelliteRegistered
-	 * @return
+	 * @return {@link float[]}
 	 */
 	public static float[] getDistanceArray(SatelliteBO satelliteRegistered) {
 		
