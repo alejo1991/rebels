@@ -21,6 +21,10 @@ mvn clean install
 ```
 
 ```bash
+mvn generate-sources
+```
+
+```bash
 mvn spring-boot:run
 ```
 
